@@ -21,8 +21,14 @@ namespace CodeBase.Hero
     public event Action<AnimatorState> StateExited;
    
     public AnimatorState State { get; private set; }
+    public CharacterController CharacterController;
     
     public Animator Animator;
+
+    private void Update()
+    {
+      Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
+    }
 
     public bool IsAttacking => State == AnimatorState.Attack;
     
