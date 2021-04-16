@@ -8,8 +8,8 @@ TagManager:
   - PlayerCollider
   - AttackRangeDetector
   - FxTemporaire
-  - InitialPoint
   - LoadingCurtain
+  - PlayerInitialPoint
   layers:
   - Default
   - TransparentFX
