@@ -6,20 +6,39 @@ namespace CodeBase.Logic
   public class LoadingCurtain : MonoBehaviour
   {
     public CanvasGroup Curtain;
+    
+    private Coroutine _fadeCoroutine;
+
+    public void Show()
+    {
+      StopPreviousFade();
+      _fadeCoroutine = StartCoroutine(DoFadeOut());
+    }
+
+    public void Hide()
+    {
+      StopPreviousFade();
+      _fadeCoroutine = StartCoroutine(DoFadeIn());
+    }
 
     private void Awake()
     {
       DontDestroyOnLoad(this);
     }
 
-    public void Show()
+    private void Start()
     {
-      gameObject.SetActive(true);
       Curtain.alpha = 1;
     }
-    
-    public void Hide() => StartCoroutine(DoFadeIn());
-    
+
+    private void StopPreviousFade()
+    {
+      if (_fadeCoroutine != null)
+      {
+        StopCoroutine(_fadeCoroutine);
+      }
+    }
+
     private IEnumerator DoFadeIn()
     {
       while (Curtain.alpha > 0)
@@ -29,6 +48,17 @@ namespace CodeBase.Logic
       }
       
       gameObject.SetActive(false);
+    }
+    
+    private IEnumerator DoFadeOut()
+    {
+      gameObject.SetActive(true);
+     
+      while (Curtain.alpha < 1)
+      {
+        Curtain.alpha += 0.03f;
+        yield return new WaitForSeconds(0.03f);
+      }
     }
   }
 }
