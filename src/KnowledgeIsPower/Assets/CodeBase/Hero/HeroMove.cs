@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure;
-using CodeBase.Services.Input;
+using CodeBase.Infrastructure.Input;
+using CodeBase.Infrastructure.Services;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -14,7 +15,8 @@ namespace CodeBase.Hero
 
     private void Awake()
     {
-      _inputService = Game.InputService;
+      Debug.Log(AllServices.Container);
+      _inputService = AllServices.Container.Single<IInputService>();
     }
 
     private void Start()
@@ -37,7 +39,7 @@ namespace CodeBase.Hero
 
       movementVector += Physics.gravity;
 
-      CharacterController.Move(MovementSpeed * movementVector * Time.deltaTime);
+      CharacterController.Move(movementVector * (MovementSpeed * Time.deltaTime));
     }
   }
 }
