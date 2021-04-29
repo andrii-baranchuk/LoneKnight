@@ -1,24 +1,26 @@
 ﻿using CodeBase.CameraLogic;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
   public class LoadLevelState : IPayloadedState<string>
   {
     private const string InitialPointTag = "InitialPoint";
-    private const string HeroPath = "Hero/hero";
-    private const string HudPath = "Hud/Hud";
+
+   
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingCurtain _curtain;
+    private readonly IGameFactory _gameFactory;
 
-    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain)
+    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory)
     {
       _gameStateMachine = gameStateMachine;
       _sceneLoader = sceneLoader;
       _curtain = curtain;
+      _gameFactory = gameFactory;
     }
 
     public void Enter(string sceneName)
@@ -34,29 +36,15 @@ namespace CodeBase.Infrastructure
     {
       GameObject initialPoint = GameObject.FindWithTag(InitialPointTag);
       
-      GameObject hero = Instantiate(
-        HeroPath,
-        initialPoint.transform.position
-        );
-      Instantiate(HudPath);
+      GameObject hero = _gameFactory.CreateHero(initialPoint);
       
+      _gameFactory.CreateHud();
+
       CameraFollow(hero);
       
       _gameStateMachine.Enter<GameLoopState>();
     }
 
-    private static GameObject Instantiate(string path)
-    {
-      GameObject heroPrefab = Resources.Load<GameObject>(path);
-      return Object.Instantiate(heroPrefab);
-    }
-    
-    private static GameObject Instantiate(string path, Vector3 spawnPoint)
-    {
-      GameObject heroPrefab = Resources.Load<GameObject>(path);
-      return Object.Instantiate(heroPrefab, spawnPoint, Quaternion.identity);
-    }
-    
     private void CameraFollow(GameObject hero)
     {
       Camera.main
