@@ -1,12 +1,14 @@
 ﻿using CodeBase.CameraLogic;
+using CodeBase.Data;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-  public class HeroMove : MonoBehaviour
+  public class HeroMove : MonoBehaviour, ISavedProgress
   {
     public CharacterController CharacterController;
     public float MovementSpeed;
@@ -39,5 +41,30 @@ namespace CodeBase.Hero
 
       CharacterController.Move(MovementSpeed * Time.deltaTime * movementVector);
     }
+    
+    public void UpdateProgress(PlayerProgress progress) => 
+      progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+    
+    public void LoadProgress(PlayerProgress progress)
+    {
+      if (progress.WorldData.PositionOnLevel.Level == CurrentLevel())
+      {
+        Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+        if (savedPosition != null)
+        {
+          Warp(savedPosition);
+        }
+      }
+    }
+
+    private void Warp(Vector3Data to)
+    {
+      CharacterController.enabled = false;
+      transform.position = to.AsUnityVector().AddY(CharacterController.height);
+      CharacterController.enabled = true;
+    }
+
+    private static string CurrentLevel() => 
+      SceneManager.GetActiveScene().name;
   }
 }
