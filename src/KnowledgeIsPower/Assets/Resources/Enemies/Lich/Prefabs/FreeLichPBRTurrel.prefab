@@ -386,10 +386,10 @@ GameObject:
   - component: {fileID: 1759886331324184333}
   - component: {fileID: 1364356453925627515}
   - component: {fileID: 1668156429}
-  - component: {fileID: 1668156432}
   - component: {fileID: 1442888757536235303}
+  - component: {fileID: 6698861476914747504}
   m_Layer: 0
-  m_Name: FreeLichPBR
+  m_Name: FreeLichPBRTurrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,19 +479,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agent: {fileID: 1364356453925627515}
   Animator: {fileID: 1759886331324184333}
---- !u!114 &1668156432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500939411536426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d92c05840704095a987843cc0757fe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Agent: {fileID: 1364356453925627515}
 --- !u!114 &1442888757536235303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,8 +492,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TriggerObserver: {fileID: 8029441840266043145}
-  Follow: {fileID: 1668156432}
+  Follow: {fileID: 6698861476914747504}
   Cooldown: 1
+--- !u!114 &6698861476914747504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a9d3ee64ca486092882452896c78b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1
 --- !u!1 &1537370055453520
 GameObject:
   m_ObjectHideFlags: 0
