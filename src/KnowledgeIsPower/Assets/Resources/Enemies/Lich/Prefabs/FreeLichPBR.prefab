@@ -388,6 +388,8 @@ GameObject:
   - component: {fileID: 8370572463055720690}
   - component: {fileID: 6000557295326127675}
   - component: {fileID: 3563515048235151462}
+  - component: {fileID: 8931780821899239672}
+  - component: {fileID: 4445944871339230747}
   m_Layer: 0
   m_Name: FreeLichPBR
   m_TagString: Untagged
@@ -409,6 +411,7 @@ Transform:
   - {fileID: 4523268626435018}
   - {fileID: 4256255772079902}
   - {fileID: 8056588246543018669}
+  - {fileID: 5322521247291805128}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -456,10 +459,10 @@ NavMeshAgent:
   m_Speed: 5
   m_Acceleration: 15
   avoidancePriority: 50
-  m_AngularSpeed: 1600
-  m_StoppingDistance: 1.5
+  m_AngularSpeed: 160000
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -507,6 +510,36 @@ MonoBehaviour:
   TriggerObserver: {fileID: 8229468595835898556}
   Follow: {fileID: 8370572463055720690}
   Cooldown: 3
+--- !u!114 &8931780821899239672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea56fb9fedc240f980315ef1b2e5f31d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 1759886331324184333}
+  AttackCooldown: 3
+  Cleavage: 0.5
+  EffectiveDistance: 0.5
+--- !u!114 &4445944871339230747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269f0c4d3bdc4b8bae1d6c4013af9307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attack: {fileID: 8931780821899239672}
+  TriggerObserver: {fileID: 260377314889123700}
 --- !u!1 &1537370055453520
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +952,63 @@ Transform:
   m_Father: {fileID: 4383292479776962}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3223485415043723573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5322521247291805128}
+  - component: {fileID: 3779167036005905274}
+  - component: {fileID: 260377314889123700}
+  m_Layer: 14
+  m_Name: AtttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5322521247291805128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223485415043723573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4665124114459090}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3779167036005905274
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223485415043723573}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &260377314889123700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223485415043723573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ca83675d484984a74f13bb1cd3ecc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3478608473733385470
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +1052,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 10
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8229468595835898556
 MonoBehaviour:

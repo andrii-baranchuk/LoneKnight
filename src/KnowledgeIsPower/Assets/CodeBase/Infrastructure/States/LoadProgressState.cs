@@ -18,7 +18,7 @@ namespace CodeBase.Infrastructure.States
       _progressService = progressService;
       _saveLoadService = saveLoadService;
     }
-    
+
     public void Enter()
     {
       LoadProgressOrInitNew();
@@ -27,7 +27,6 @@ namespace CodeBase.Infrastructure.States
 
     public void Exit()
     {
-      
     }
 
     private void LoadProgressOrInitNew()
@@ -36,7 +35,13 @@ namespace CodeBase.Infrastructure.States
       Debug.Log(_progressService.Progress.WorldData.PositionOnLevel);
     }
 
-    private PlayerProgress NewProgress() => 
-      new PlayerProgress("Main");
+    private PlayerProgress NewProgress()
+    {
+      var progress = new PlayerProgress("Main");
+      progress.HeroState.MaxHP = 50;
+      progress.HeroState.ResetHP();
+      
+      return progress;
+    }
   }
 }

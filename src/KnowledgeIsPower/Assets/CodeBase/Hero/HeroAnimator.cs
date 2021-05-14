@@ -24,12 +24,6 @@ namespace CodeBase.Hero
     public CharacterController CharacterController;
     
     public Animator Animator;
-    public CharacterController CharacterController;
-
-    private void Update()
-    {
-      Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
-    }
 
     private void Update()
     {

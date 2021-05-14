@@ -31,8 +31,10 @@ namespace CodeBase.Infrastructure.Factory
     }
 
 
-    public void CreateHud() =>
-      InstantiateRegistered(AssetPath.HudPath);
+    public GameObject CreateHud()
+    {
+      return InstantiateRegistered(AssetPath.HudPath);
+    }
 
     public void CleanUp()
     {
