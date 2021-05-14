@@ -25,8 +25,6 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         progressWriter.UpdateProgress(_progressService.Progress);
       }
       
-      Debug.Log(_progressService.Progress.WorldData.PositionOnLevel.Level);
-      Debug.Log(_progressService.Progress.ToJson());
       PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
     }
 

@@ -11,7 +11,7 @@ namespace CodeBase.Infrastructure.States
 
     public void Exit()
     {
-      throw new NotImplementedException();
+      
     }
 
     public void Enter()
