@@ -71,8 +71,8 @@ namespace CodeBase.Infrastructure.States
     {
       GameObject hud = _gameFactory.CreateHud();
 
-      /*hud.GetComponentInChildren<ActorUI>()
-        .Construct(hero.GetComponent<HeroHealth>());*/
+      hud.GetComponentInChildren<ActorUI>()
+        .Construct(hero.GetComponent<HeroHealth>());
     }
 
     private void CameraFollow(GameObject hero) =>

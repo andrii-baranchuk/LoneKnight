@@ -7,7 +7,7 @@ namespace CodeBase.Enemy
   public class Aggro : MonoBehaviour
   {
     public TriggerObserver TriggerObserver;
-    public Follow Follow;
+    public EnemyFollow Follow;
 
     public float Cooldown;
     private Coroutine _aggroCoroutine;

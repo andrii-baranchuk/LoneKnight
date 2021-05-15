@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-  public class RotateToPlayer : Follow
+  public class RotateToPlayer : EnemyFollow
   {
     private float Speed = 1f;
 

@@ -2,7 +2,7 @@
 
 namespace CodeBase.Enemy
 {
-  public class Follow : MonoBehaviour
+  public class EnemyFollow : MonoBehaviour
   {
     
   }
