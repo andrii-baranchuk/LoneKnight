@@ -11,6 +11,7 @@ namespace CodeBase.Infrastructure.States
   public class LoadLevelState : IPayloadedState<string>
   {
     private const string InitialPointTag = "PlayerInitialPoint";
+    private const string EnemySpawnerTag = "EnemySpawner";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingCurtain _loadingCurtain;
@@ -46,20 +47,25 @@ namespace CodeBase.Infrastructure.States
       _stateMachine.Enter<GameLoopState>();
     }
 
-    private void InformProgressReaders()
-    {
-      foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
-      {
-        progressReader.LoadProgress(_progressService.Progress);
-      }
-    }
-
     private void IntiGameWorld()
     {
+      InitSpawners();
+      
       GameObject hero = InitHero();
       
       InitHud(hero);
       CameraFollow(hero);
+    }
+
+    private void InitSpawners()
+    {
+      var spawners = GameObject.FindGameObjectsWithTag(EnemySpawnerTag);
+
+      foreach (GameObject spawnerGO in spawners)
+      {
+        var spawner = spawnerGO.GetComponent<EnemySpawner>();
+        _gameFactory.Register(spawner);
+      }
     }
 
     private GameObject InitHero()
@@ -77,5 +83,13 @@ namespace CodeBase.Infrastructure.States
 
     private void CameraFollow(GameObject hero) =>
       Camera.main.GetComponent<CameraFollow>().Follow(hero);
+
+    private void InformProgressReaders()
+    {
+      foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+      {
+        progressReader.LoadProgress(_progressService.Progress);
+      }
+    }
   }
 }
