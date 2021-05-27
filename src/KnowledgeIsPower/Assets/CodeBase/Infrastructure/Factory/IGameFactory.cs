@@ -14,6 +14,7 @@ namespace CodeBase.Infrastructure.Factory
     List<ISavedProgress> ProgressWriters { get; }
     GameObject HeroGameObject { get; }
     event Action<GameObject> HeroCreated;
+    void Register(ISavedProgressReader progressReader);
     void Cleanup();
   }
 }
