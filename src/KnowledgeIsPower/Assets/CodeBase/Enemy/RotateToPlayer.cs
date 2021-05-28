@@ -8,22 +8,12 @@ namespace CodeBase.Enemy
   public class RotateToPlayer : EnemyFollow
   {
     private float Speed = 1f;
-
-    private IGameFactory _gameFactory;
+    
     private Transform _heroTransform;
     private Vector3 _positionToLook;
 
-    private void Start()
-    {
-      _gameFactory = AllServices.Container.Single<IGameFactory>();
-
-      if (_gameFactory.HeroGameObject != null)
-        InitializeHeroTransform();
-      else
-      {
-        _gameFactory.HeroCreated += HeroCreated;
-      }
-    }
+    public void Construct(Transform heroTransform) => 
+      _heroTransform = heroTransform;
 
     private void Update()
     {
@@ -31,12 +21,6 @@ namespace CodeBase.Enemy
         RotateTowardsHero();
     }
 
-    private void InitializeHeroTransform() =>
-      _heroTransform = _gameFactory.HeroGameObject.transform;
-    
-    private void HeroCreated() =>
-      InitializeHeroTransform();
-    
     private bool HeroInitialized() => 
       _heroTransform != null;
 

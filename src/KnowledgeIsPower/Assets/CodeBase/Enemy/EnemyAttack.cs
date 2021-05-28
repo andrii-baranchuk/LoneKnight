@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
-using CodeBase.Logic;
+﻿using System.Linq;
 using UnityEngine;
 using IHealth = CodeBase.Logic.IHealth;
 
@@ -18,8 +13,7 @@ namespace CodeBase.Enemy
     public float Cleavage = 1f;
     public float EffectiveDistance = 1.0f;
     public float Damage = 10f;
-
-    private IGameFactory _factory;
+    
     private Transform _heroTransform;
     private float _attackCooldown;
     private bool _isAttacking;
@@ -27,12 +21,12 @@ namespace CodeBase.Enemy
     private int _layerMask;
     private bool _attackIsActive;
 
+    public void Construct(Transform heroTransform) => 
+      _heroTransform = heroTransform;
+
     private void Awake()
     {
-      _factory = AllServices.Container.Single<IGameFactory>();
-
       _layerMask = 1 << LayerMask.NameToLayer("Player");
-      _factory.HeroCreated += OnHeroCreated;
     }
 
     private void Update()
@@ -44,6 +38,7 @@ namespace CodeBase.Enemy
     }
 
     //Invoked from Unity Animator
+
     private void OnAttack()
     {
       if (Hit(out Collider hit))
@@ -52,14 +47,15 @@ namespace CodeBase.Enemy
         hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
       }
     }
-    
+
     //Invoked from Unity Animator
+
     private void OnAttackEnded()
     {
       _attackCooldown = AttackCooldown;
       _isAttacking = false;
     }
-    
+
     private void StartAttack()
     {
       transform.LookAt(_heroTransform);
@@ -88,7 +84,7 @@ namespace CodeBase.Enemy
       return new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z)
              + transform.forward * EffectiveDistance;
     }
-    
+
     private bool CooldownIsUp()
     {
       return _attackCooldown <= 0f;
@@ -102,8 +98,5 @@ namespace CodeBase.Enemy
 
     private bool CanAttack() => 
       _attackIsActive && CooldownIsUp() && !_isAttacking;
-
-    private void OnHeroCreated() =>
-      _heroTransform = _factory.HeroGameObject.transform;
   }
 }
