@@ -1,7 +1,4 @@
-﻿using System;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Enemy
 {
@@ -12,18 +9,8 @@ namespace CodeBase.Enemy
     private Transform _heroTransform;
     private Vector3 _positionToLook;
 
-    private void Start()
-    {
-      IGameFactory gameFactory = AllServices.Container.Single<IGameFactory>();
-      
-      if (gameFactory.HeroGameObject != null) 
-        InitializeHeroTransform(gameFactory.HeroGameObject);
-      else
-        gameFactory.HeroCreated += InitializeHeroTransform;
-    }
-
-    private void InitializeHeroTransform(GameObject heroGameObject) => 
-      _heroTransform = heroGameObject.transform;
+    public void Construct(Transform heroTransform) => 
+      _heroTransform = heroTransform; 
 
     private void Update()
     {
