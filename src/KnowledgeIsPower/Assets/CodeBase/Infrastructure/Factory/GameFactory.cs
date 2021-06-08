@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
@@ -17,16 +18,20 @@ namespace CodeBase.Infrastructure.Factory
   {
     private readonly IAssets _assets;
     private readonly IStaticDataService _staticData;
+    private readonly IRandomService _randomService;
+    private IPersistentProgressService _progressService;
 
     public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
     public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
     private GameObject heroGameObject { get; set; }
 
-    public GameFactory(IAssets assets, IStaticDataService staticData)
+    public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService)
     {
       _assets = assets;
       _staticData = staticData;
+      _randomService = randomService;
+      _progressService = progressService;
     }
 
     public GameObject CreateHero(GameObject at)
@@ -37,7 +42,7 @@ namespace CodeBase.Infrastructure.Factory
     }
 
 
-    public GameObject CreateMonster(MonsterTypeId typeId, Transform parent)
+    public GameObject CreateMonster(MonsterTypeId typeId, Transform parent, EnemySpawner spawner)
     {
       MonsterStaticData monsterData = _staticData.ForMonster(typeId);
       GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity, parent);
@@ -45,25 +50,44 @@ namespace CodeBase.Infrastructure.Factory
       var health = monster.GetComponent<IHealth>();
       health.Current = monsterData.Hp;
       health.Max = monsterData.Hp;
-      
+
       monster.GetComponent<ActorUI>().Construct(health);
       monster.GetComponent<AgentMoveToPlayer>().Construct(heroGameObject.transform);
       monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
+
+      var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+      lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);
+      lootSpawner.Construct(this, _randomService, spawner);
 
       var attack = monster.GetComponent<EnemyAttack>();
       attack.Construct(heroGameObject.transform);
       attack.Damage = monsterData.Damage;
       attack.Cleavage = monsterData.Cleavage;
       attack.EffectiveDistance = monsterData.EffectiveDistance;
-      
+
       monster.GetComponent<RotateToPlayer>()?.Construct(heroGameObject.transform);
 
       return monster;
     }
 
+    public LootPiece CreateLoot()
+    {
+      var lootPiece = InstantiateRegistered(AssetPath.Loot).
+        GetComponent<LootPiece>();
+      
+      lootPiece.Construct(_progressService.Progress.WorldData);
+      
+      return lootPiece;
+    }
+
     public GameObject CreateHud()
     {
-      return InstantiateRegistered(AssetPath.HudPath);
+      GameObject hud = InstantiateRegistered(AssetPath.HudPath);
+      
+      hud.GetComponentInChildren<LootCounter>()
+        .Construct(_progressService.Progress.WorldData);
+      
+      return hud;
     }
 
     public void CleanUp()
@@ -96,9 +120,9 @@ namespace CodeBase.Infrastructure.Factory
 
     public void Register(ISavedProgressReader progressReader)
     {
-      if(progressReader is ISavedProgress progressWriter)
+      if (progressReader is ISavedProgress progressWriter)
         ProgressWriters.Add(progressWriter);
-      
+
       ProgressReaders.Add(progressReader);
     }
   }

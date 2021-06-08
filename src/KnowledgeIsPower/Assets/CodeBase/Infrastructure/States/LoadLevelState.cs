@@ -50,7 +50,7 @@ namespace CodeBase.Infrastructure.States
     private void IntiGameWorld()
     {
       InitSpawners();
-      
+
       GameObject hero = InitHero();
       
       InitHud(hero);

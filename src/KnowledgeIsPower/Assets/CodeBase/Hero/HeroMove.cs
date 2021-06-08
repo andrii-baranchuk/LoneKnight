@@ -48,8 +48,6 @@ namespace CodeBase.Hero
     {
       progress.WorldData.PositionOnLevel = 
         new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
-      
-      Debug.Log(progress.WorldData.PositionOnLevel);
     }
     
     public void LoadProgress(PlayerProgress progress)

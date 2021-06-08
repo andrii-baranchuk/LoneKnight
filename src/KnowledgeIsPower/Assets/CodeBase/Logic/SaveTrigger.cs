@@ -18,8 +18,6 @@ namespace CodeBase.Logic
     private void OnTriggerEnter(Collider other)
     {
       _saveLoadService.SaveProgress();
-      
-      Debug.Log("Game Saved");
       gameObject.SetActive(false);
     }
 

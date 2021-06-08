@@ -1491,7 +1491,7 @@ PrefabInstance:
     - target: {fileID: 4142328505981910768, guid: 277f781bbc17bad4fafb47c3b07b7161,
         type: 3}
       propertyPath: MonsterTypeId
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4142328505981910769, guid: 277f781bbc17bad4fafb47c3b07b7161,
         type: 3}
@@ -1501,7 +1501,7 @@ PrefabInstance:
     - target: {fileID: 4142328505981910769, guid: 277f781bbc17bad4fafb47c3b07b7161,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.42
+      value: -3.98
       objectReference: {fileID: 0}
     - target: {fileID: 4142328505981910769, guid: 277f781bbc17bad4fafb47c3b07b7161,
         type: 3}
@@ -1649,7 +1649,7 @@ PrefabInstance:
     - target: {fileID: 2964230373128270802, guid: cad6488edfbdf2e4a8ab33031d856ce6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -11.43
       objectReference: {fileID: 0}
     - target: {fileID: 2964230373128270802, guid: cad6488edfbdf2e4a8ab33031d856ce6,
         type: 3}
@@ -1700,6 +1700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SaveTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964230373128270805, guid: cad6488edfbdf2e4a8ab33031d856ce6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cad6488edfbdf2e4a8ab33031d856ce6, type: 3}

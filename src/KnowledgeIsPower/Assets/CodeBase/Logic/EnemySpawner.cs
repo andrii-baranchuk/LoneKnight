@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
@@ -26,7 +27,7 @@ namespace CodeBase.Logic
 
     private void Spawn()
     {
-      GameObject monster = _factory.CreateMonster(MonsterTypeId, transform);
+      GameObject monster = _factory.CreateMonster(MonsterTypeId, transform, this);
       _enemyDeath = monster.GetComponent<EnemyDeath>();
       _enemyDeath.Happened += Slay;
     }
@@ -39,10 +40,27 @@ namespace CodeBase.Logic
       Slain = true;
     }
 
+    private IEnumerator SpawnLoot(PlayerProgress progress)
+    {
+      yield return new WaitForSeconds(0.1f);
+      
+      var lootData = progress.WorldData.LootData.NotCollectedLoot.Find(x => x.Id == _id);
+      if (lootData != null)
+      {
+        LootPiece loot = _factory.CreateLoot();
+        loot.transform.position = lootData.Position.AsUnityVector();
+        loot.Initialize(lootData.Loot, this);
+      }
+    }
+
     public void LoadProgress(PlayerProgress progress)
     {
       if (progress.KillData.ClearedSpawners.Contains(_id))
+      {
         Slain = true;
+
+        StartCoroutine(SpawnLoot(progress));
+      }
       else
       {
         Spawn();

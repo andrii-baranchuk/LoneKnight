@@ -13,6 +13,9 @@ namespace CodeBase.StaticData
     [Range(1,30)]
     public float Damage;
 
+    public int MinLoot;
+    public int MaxLoot;
+
     [Range(1, 30)] 
     public float MoveSpeed;
 

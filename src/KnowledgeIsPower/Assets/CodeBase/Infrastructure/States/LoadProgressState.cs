@@ -32,7 +32,6 @@ namespace CodeBase.Infrastructure.States
     private void LoadProgressOrInitNew()
     {
       _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
-      Debug.Log(_progressService.Progress.WorldData.PositionOnLevel);
     }
 
     private PlayerProgress NewProgress()
