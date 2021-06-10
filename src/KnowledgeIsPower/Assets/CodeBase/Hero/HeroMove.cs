@@ -1,7 +1,6 @@
-﻿using CodeBase.CameraLogic;
-using CodeBase.Data;
-using CodeBase.Infrastructure;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
 using UnityEngine;
 using UnityEngine.SceneManagement;

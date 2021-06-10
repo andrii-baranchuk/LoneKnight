@@ -8,10 +8,12 @@ namespace CodeBase.Data
   {
     public Vector3Data Position;
     public PositionOnLevel PositionOnLevel;
+    public LootData LootData;
 
     public WorldData(string initialLevel)
     {
       PositionOnLevel = new PositionOnLevel(initialLevel);
+      LootData = new LootData();
     }
   }
 }

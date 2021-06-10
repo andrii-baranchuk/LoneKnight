@@ -1,4 +1,6 @@
 ﻿using CodeBase.CameraLogic;
+using CodeBase.Data;
+using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -67,6 +69,8 @@ namespace CodeBase.Infrastructure.States
       InitHud(hero);
 
       CameraFollow(hero);
+
+      InitUnpickedLoot();
     }
     
     private void InitSpawners()
@@ -89,6 +93,15 @@ namespace CodeBase.Infrastructure.States
       Camera.main
         .GetComponent<CameraFollow>()
         .Follow(hero);
+    }
+    
+    private void InitUnpickedLoot()
+    {
+      foreach (Loot lootItem in _progressService.Progress.WorldData.LootData.UnpickedLoot.Loot)
+      {
+        LootPiece lootPiece = _gameFactory.CreateLoot();
+        lootPiece.Initialize(lootItem);
+      }
     }
   }
 }

@@ -14,6 +14,9 @@ namespace CodeBase.StaticData
     [Range(1, 30)] 
     public float Damage = 15;
 
+    public int MinLoot;
+    public int MaxLoot;
+
     [Range(0.5f, 1)] 
     public float EffectiveDistance = 0.75f;
 
