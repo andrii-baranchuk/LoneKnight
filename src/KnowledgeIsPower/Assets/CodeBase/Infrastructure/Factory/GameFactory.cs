@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -42,7 +43,7 @@ namespace CodeBase.Infrastructure.Factory
     }
 
 
-    public GameObject CreateMonster(MonsterTypeId typeId, Transform parent, EnemySpawner spawner)
+    public GameObject CreateMonster(MonsterTypeId typeId, Transform parent, SpawnPoint spawner)
     {
       MonsterStaticData monsterData = _staticData.ForMonster(typeId);
       GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity, parent);
@@ -88,6 +89,16 @@ namespace CodeBase.Infrastructure.Factory
         .Construct(_progressService.Progress.WorldData);
       
       return hud;
+    }
+
+    public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterId)
+    {
+      SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at)
+        .GetComponent<SpawnPoint>();
+
+      spawner.Construct(this);
+      spawner.Id = spawnerId;
+      spawner.MonsterTypeId = monsterId;
     }
 
     public void CleanUp()

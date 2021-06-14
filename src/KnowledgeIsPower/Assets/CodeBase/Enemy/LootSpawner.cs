@@ -3,6 +3,7 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -14,9 +15,9 @@ namespace CodeBase.Enemy
     private int _lootMin;
     private int _lootMax;
     private IRandomService _random;
-    private EnemySpawner _spawner;
+    private SpawnPoint _spawner;
 
-    public void Construct(IGameFactory factory, IRandomService random, EnemySpawner spawner)
+    public void Construct(IGameFactory factory, IRandomService random, SpawnPoint spawner)
     {
       _factory = factory;
       _random = random;

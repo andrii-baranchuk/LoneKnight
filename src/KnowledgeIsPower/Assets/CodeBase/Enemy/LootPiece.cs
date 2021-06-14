@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using TMPro;
 using UnityEngine;
 
@@ -23,18 +24,18 @@ namespace CodeBase.Enemy
     private bool _picked;
 
     private WorldData _worldData;
-    private EnemySpawner _enemySpawner;
+    private SpawnPoint _spawnPoint;
 
     public void Construct(WorldData worldData)
     {
       _worldData = worldData;
     }
 
-    public void Initialize(Loot loot, EnemySpawner enemySpawner)
+    public void Initialize(Loot loot, SpawnPoint spawnPoint)
     {
-      _enemySpawner = enemySpawner;
+      _spawnPoint = spawnPoint;
       _loot = loot;
-      _lootData = new LootPieceData(_enemySpawner.GetComponent<UniqueId>().Id,_loot, transform.position.AsVectorData());
+      _lootData = new LootPieceData(_spawnPoint.Id,_loot, transform.position.AsVectorData());
     }
 
     private void OnTriggerEnter(Collider other) => Pickup();

@@ -4,6 +4,7 @@ using CodeBase.Enemy;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using UnityEngine;
 
@@ -17,8 +18,8 @@ namespace CodeBase.Infrastructure.Factory
     GameObject CreateHero(GameObject at);
     GameObject CreateHud();
     void CleanUp();
-    void Register(ISavedProgressReader progressReader);
-    GameObject CreateMonster(MonsterTypeId typeId, Transform parent, EnemySpawner spawner);
+    void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterId);
+    GameObject CreateMonster(MonsterTypeId typeId, Transform parent, SpawnPoint spawner);
     LootPiece CreateLoot();
   }
 }
