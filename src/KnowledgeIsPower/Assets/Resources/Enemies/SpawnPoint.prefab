@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2526138307040381198}
   - component: {fileID: 2526138307040381199}
-  - component: {fileID: 6944275115888939098}
   m_Layer: 0
-  m_Name: Spawner
-  m_TagString: EnemySpawner
+  m_Name: SpawnPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,16 +45,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MonsterTypeId: 0
   Slain: 0
---- !u!114 &6944275115888939098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2526138307040381184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e756835f1ac045a5990d0ac9f6183a3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: ' 729e917e-4897-440d-8250-cbdc35398926'

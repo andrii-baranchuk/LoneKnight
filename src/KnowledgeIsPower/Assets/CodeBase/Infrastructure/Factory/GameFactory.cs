@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -78,7 +79,17 @@ namespace CodeBase.Infrastructure.Factory
       lootPiece.Construct(_progressService.Progress.WorldData);
       return lootPiece;
     }
-    
+
+    public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
+    {
+      SpawnPoint spawner = InstantiateRegistred(AssetPath.Spawner, at)
+        .GetComponent<SpawnPoint>();
+
+      spawner.Construct(this);
+      spawner.Id = spawnerId;
+      spawner.MonsterTypeId = monsterTypeId;
+    }
+
     public void Register(ISavedProgressReader progressReader)
     {
       if (progressReader is ISavedProgress progressWriter)
