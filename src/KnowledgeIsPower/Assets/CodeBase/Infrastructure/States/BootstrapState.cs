@@ -6,6 +6,8 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -42,12 +44,31 @@ namespace CodeBase.Infrastructure.States
     private void RegisterServices()
     {
       _services.RegisterSingle<IInputService>(InputService());
+      
       _services.RegisterSingle<IAssets>(new AssetProvider());
+      
       RegisterStaticData();
+      
       _services.RegisterSingle<IRandomService>(new UnityRandomService());
+      
       _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+      
+      _services.RegisterSingle<IUIFactory>(new UIFactory(
+        _services.Single<IAssets>(),
+        _services.Single<IStaticDataService>(),
+        _services.Single<IPersistentProgressService>()
+        ));
+      
+      _services.RegisterSingle<IWindowsService>(new WindowsService(_services.Single<IUIFactory>()));
+      
       _services.RegisterSingle<IGameFactory>(new GameFactory(
-        _services.Single<IAssets>(), _services.Single<IStaticDataService>(), _services.Single<IRandomService>(), _services.Single<IPersistentProgressService>()));
+        _services.Single<IAssets>(),
+        _services.Single<IStaticDataService>(),
+        _services.Single<IRandomService>(),
+        _services.Single<IPersistentProgressService>(),
+        _services.Single<IWindowsService>()
+        ));
+      
       _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
     }
 
@@ -56,6 +77,7 @@ namespace CodeBase.Infrastructure.States
       IStaticDataService staticData = new StaticDataService();
       staticData.LoadMonsters();
       staticData.LoadLevels();
+      staticData.LoadWindows();
       _services.RegisterSingle<IStaticDataService>(staticData);
     }
 
