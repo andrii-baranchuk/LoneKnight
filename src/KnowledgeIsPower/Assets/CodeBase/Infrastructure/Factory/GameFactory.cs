@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
@@ -7,7 +6,8 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
-using CodeBase.UI;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,12 +23,14 @@ namespace CodeBase.Infrastructure.Factory
     private readonly IStaticDataService _staticData;
     private readonly IRandomService _randomService;
     private readonly IPersistentProgressService _progressService;
+    private readonly IWindowService _windowService;
 
-    public GameFactory(IAssetProvider assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService)
+    public GameFactory(IAssetProvider assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService, IWindowService windowService)
     {
       _assets = assets;
       _staticData = staticData;
       _progressService = progressService;
+      _windowService = windowService;
       _randomService = randomService;
     }
     public GameObject CreateHero(GameObject at)
@@ -41,7 +43,10 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject hud = InstantiateRegistred(AssetPath.HudPath);
       hud.GetComponentInChildren<LootCounter>().Construct(_progressService.Progress.WorldData);
-      
+
+      foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>()) 
+        openWindowButton.Construct(_windowService);
+
       return hud;
     }
 
@@ -92,11 +97,9 @@ namespace CodeBase.Infrastructure.Factory
 
     public void Register(ISavedProgressReader progressReader)
     {
-      if (progressReader is ISavedProgress progressWriter)
-      {
+      if (progressReader is ISavedProgress progressWriter) 
         ProgressWriters.Add(progressWriter);
-      }
-      
+
       ProgressReaders.Add(progressReader);
     }
 
@@ -122,10 +125,8 @@ namespace CodeBase.Infrastructure.Factory
 
     private void RegisterProgressWatchers(GameObject gameObject)
     {
-      foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
-      {
+      foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>()) 
         Register(progressReader);
-      }
     }
   }
 }
