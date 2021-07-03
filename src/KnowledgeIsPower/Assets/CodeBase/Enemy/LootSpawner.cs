@@ -1,8 +1,6 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Random;
-using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using UnityEngine;
 

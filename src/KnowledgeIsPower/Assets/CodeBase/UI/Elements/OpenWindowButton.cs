@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.UI.Services.Windows;
+﻿using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 

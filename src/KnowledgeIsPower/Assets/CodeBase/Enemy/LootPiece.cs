@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using CodeBase.Data;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using TMPro;
 using UnityEngine;

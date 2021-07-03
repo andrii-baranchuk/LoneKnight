@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using CodeBase.Logic;
 using UnityEngine;
-using IHealth = CodeBase.Logic.IHealth;
 
 namespace CodeBase.Enemy
 {
