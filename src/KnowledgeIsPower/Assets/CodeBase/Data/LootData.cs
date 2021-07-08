@@ -19,6 +19,11 @@ namespace CodeBase.Data
       Collected += loot.Value;
       Changed?.Invoke();
       UnpickedLoot.Loot.Remove(loot);
+    }    
+    public void Add(int loot)
+    {
+      Collected += loot;
+      Changed?.Invoke();
     }
   }
 }

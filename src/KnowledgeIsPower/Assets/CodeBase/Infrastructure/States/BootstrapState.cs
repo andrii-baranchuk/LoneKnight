@@ -1,6 +1,7 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.RandomService;
 using CodeBase.Infrastructure.Services.SaveLoad;
@@ -44,7 +45,8 @@ namespace CodeBase.Infrastructure.States
     {
       RegisterStaticData();
       RegisterRandomService();
-      
+      RegisterAdsService();
+
       _services.RegisterSingle<IInputService>(RegisterInputService());
       _services.RegisterSingle<IAssetProvider>(new AssetProvider());
       _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
@@ -52,7 +54,8 @@ namespace CodeBase.Infrastructure.States
       _services.RegisterSingle<IUIFactory>(new UIFactory(
         _services.Single<IAssetProvider>(), 
         _services.Single<IStaticDataService>(),
-        _services.Single<IPersistentProgressService>()));
+        _services.Single<IPersistentProgressService>(),
+        _services.Single<IAdsService>()));
       
       _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
       
@@ -66,6 +69,13 @@ namespace CodeBase.Infrastructure.States
       _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(
         _services.Single<IPersistentProgressService>(), 
         _services.Single<IGameFactory>()));
+    }
+
+    private void RegisterAdsService()
+    {
+      AdsService adsService = new AdsService();
+      adsService.Initialize();
+      _services.RegisterSingle<IAdsService>(adsService);
     }
 
     private void RegisterStaticData()
