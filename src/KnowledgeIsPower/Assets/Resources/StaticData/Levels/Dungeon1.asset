@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c8e66745664427baa2b544831ee1645, type: 3}
-  m_Name: Dungeon
+  m_Script: {fileID: 11500000, guid: e6c11ecd621b7c14391a53903663bc9a, type: 3}
+  m_Name: Dungeon1
   m_EditorClassIdentifier: 
   LevelKey: Dungeon
-  EnemySpawners: []
+  EnemySpawners:
+  - Id: Dungeon_d1e8220a-e752-4944-8fb2-3a3c5e9db7d3
+    MonsterTypeId: 2
+    Position: {x: -4.49, y: 0.06747818, z: 26.54}
