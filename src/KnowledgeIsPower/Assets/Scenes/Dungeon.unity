@@ -764,6 +764,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInitialPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6500351336204564685, guid: 5578fd2850adc4b81a3dc5b792b83228,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerInitialPoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5578fd2850adc4b81a3dc5b792b83228, type: 3}
 --- !u!1001 &95441824
@@ -6316,7 +6321,7 @@ PrefabInstance:
     - target: {fileID: 128452244839708344, guid: 26b38cbffe5c3d24680abe5f88bcb427,
         type: 3}
       propertyPath: MonsterTypeId
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2476218980425599930, guid: 26b38cbffe5c3d24680abe5f88bcb427,
         type: 3}

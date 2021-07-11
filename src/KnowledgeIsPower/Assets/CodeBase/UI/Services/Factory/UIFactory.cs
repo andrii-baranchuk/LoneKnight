@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
+﻿using System.Threading.Tasks;
+using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -38,7 +39,10 @@ namespace CodeBase.UI.Services.Factory
       window.Construct(_adsService, _progressService);
     }
 
-    public void CreateUIRoot() => 
-      _uiRoot = _assets.Instantiate(AssetPath.UIRootPath).transform;
+    public async Task CreateUIRoot()
+    {
+      var root = await _assets.Instantiate(AssetAddress.UIRootPath);
+      _uiRoot = root.transform;
+    }
   }
 }

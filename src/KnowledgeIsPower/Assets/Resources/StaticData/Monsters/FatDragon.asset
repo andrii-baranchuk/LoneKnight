@@ -15,9 +15,12 @@ MonoBehaviour:
   MonsterTypeId: 11
   Hp: 25
   Damage: 7.9
-  MinLoot: 0
-  MaxLoot: 0
   MoveSpeed: 0
   EffectiveDistance: 0
   Cleavage: 0
-  Prefab: {fileID: 0}
+  MinLoot: 1
+  MaxLoot: 10
+  PrefabReference:
+    m_AssetGUID: c09d884e7ca40460f91e5b20675d3e94
+    m_SubObjectName: 
+    m_SubObjectType: 
