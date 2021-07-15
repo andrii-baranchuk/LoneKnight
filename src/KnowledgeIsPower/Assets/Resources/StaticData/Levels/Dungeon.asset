@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Dungeon
   EnemySpawners:
-  - Id: Dungeon_d1e8220a-e752-4944-8fb2-3a3c5e9db7d3
-    MonsterTypeId: 2
-    Position: {x: -4.49, y: 0.06747818, z: 26.54}
+  - Id: Main 1b64fb1d-f306-40d6-8c64-99db1e54c552
+    MonsterTypeId: 0
+    Position: {x: 0, y: 0, z: 0}
+  InitialHeroPosition: {x: -4.6, y: 0.26, z: -18.6}
+  LevelTransfers: []

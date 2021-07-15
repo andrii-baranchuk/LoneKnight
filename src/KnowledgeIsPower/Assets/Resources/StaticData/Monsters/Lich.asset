@@ -20,4 +20,7 @@ MonoBehaviour:
   EffectiveDistance: 0.5
   Cleavage: 0.5
   MoveSpeed: 4
-  Prefab: {fileID: 4240771057043182268, guid: 8a9de9b131dde954498d361c95612603, type: 3}
+  PrefabReference:
+    m_AssetGUID: 8a9de9b131dde954498d361c95612603
+    m_SubObjectName: 
+    m_SubObjectType: 

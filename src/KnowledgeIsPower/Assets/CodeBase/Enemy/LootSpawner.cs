@@ -24,10 +24,10 @@ namespace CodeBase.Enemy
       EnemyDeath.Happened += SpawnLoot;
     }
 
-    private void SpawnLoot()
+    private async void SpawnLoot()
     {
       Loot lootItem = GenerateLootItem(_lootMin, _lootMax, transform.position);
-      var lootPiece = _factory.CreateLoot();
+      LootPiece lootPiece = await _factory.CreateLoot();
       lootPiece.Initialize(lootItem);
     }
     

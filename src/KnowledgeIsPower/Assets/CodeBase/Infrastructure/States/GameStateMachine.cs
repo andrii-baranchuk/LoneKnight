@@ -7,10 +7,11 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI.Services.Factory;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
-  public class GameStateMachine
+  public class GameStateMachine : IGameStateMachine
   {
     private readonly Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;

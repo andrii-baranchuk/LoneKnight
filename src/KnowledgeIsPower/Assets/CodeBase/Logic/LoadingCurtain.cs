@@ -8,10 +8,11 @@ namespace CodeBase.Logic
     public CanvasGroup Curtain;
     
     private Coroutine _fadeCoroutine;
-
+    
     public void Show()
     {
       StopPreviousFade();
+       gameObject.SetActive(true);
       _fadeCoroutine = StartCoroutine(DoFadeOut());
     }
 
@@ -46,14 +47,11 @@ namespace CodeBase.Logic
         Curtain.alpha -= 0.03f;
         yield return new WaitForSeconds(0.03f);
       }
-      
       gameObject.SetActive(false);
     }
     
     private IEnumerator DoFadeOut()
     {
-      gameObject.SetActive(true);
-     
       while (Curtain.alpha < 1)
       {
         Curtain.alpha += 0.03f;

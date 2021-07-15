@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
+﻿using System.Threading.Tasks;
+using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
@@ -11,7 +12,7 @@ namespace CodeBase.UI.Services.Factory
 {
   class UIFactory : IUIFactory
   {
-    private const string UIRootPath = "UI/UIRoot";
+    private const string UIRootPath = "UIRoot";
     private readonly IAssetProvider _assetsProvider;
     private readonly IStaticDataService _staticData;
     private readonly IAdsService _adsService;
@@ -39,7 +40,10 @@ namespace CodeBase.UI.Services.Factory
       window.Construct(_adsService, _progressService);
     }
 
-    public void CreateUIRoot() => 
-      _uiRoot = _assetsProvider.Instantiate(UIRootPath).transform;
+    public async Task CreateUIRoot()
+    {
+      var root = await _assetsProvider.Instantiate(UIRootPath);
+      _uiRoot = root.transform;
+    }
   }
 }

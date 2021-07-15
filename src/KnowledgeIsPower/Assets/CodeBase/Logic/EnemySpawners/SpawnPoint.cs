@@ -22,26 +22,20 @@ namespace CodeBase.Logic.EnemySpawners
     public void LoadProgress(PlayerProgress progress)
     {
       if (progress.KillData.ClearedSpawners.Contains(Id))
-      {
         Slain = true;
-      }
       else
-      {
         Spawn();
-      }
     }
 
     public void UpdateProgress(PlayerProgress progress)
     {
-      if (Slain)
-      {
+      if (Slain) 
         progress.KillData.ClearedSpawners.Add(Id);
-      }
     }
 
-    private void Spawn()
+    private async void Spawn()
     {
-      GameObject monster = _factory.CreateMonster(MonsterTypeId, transform);
+      GameObject monster = await _factory.CreateMonster(MonsterTypeId, transform);
       enemyDeath = monster.GetComponent<EnemyDeath>();
       enemyDeath.Happened += Slay;
     }
@@ -50,6 +44,7 @@ namespace CodeBase.Logic.EnemySpawners
     {
       if (enemyDeath!=null) 
         enemyDeath.Happened -= Slay;
+      
       Slain = true;
     }
   }
