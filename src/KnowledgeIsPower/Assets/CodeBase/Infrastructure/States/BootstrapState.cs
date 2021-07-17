@@ -2,6 +2,7 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Ads;
+using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Random;
@@ -55,12 +56,15 @@ namespace CodeBase.Infrastructure.States
       _services.RegisterSingle<IRandomService>(new UnityRandomService());
 
       _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+      
+      RegisterIAPService(new IAPProvider(), _services.Single<IPersistentProgressService>());
 
       _services.RegisterSingle<IUIFactory>(new UIFactory(
         _services.Single<IAssets>(),
         _services.Single<IStaticDataService>(),
         _services.Single<IPersistentProgressService>(),
-        _services.Single<IAdsService>()
+        _services.Single<IAdsService>(),
+        _services.Single<IIAPService>()
         ));
 
       _services.RegisterSingle<IWindowsService>(new WindowsService(_services.Single<IUIFactory>()));
@@ -98,6 +102,13 @@ namespace CodeBase.Infrastructure.States
       staticData.LoadLevels();
       staticData.LoadWindows();
       _services.RegisterSingle<IStaticDataService>(staticData);
+    }
+
+    private void RegisterIAPService(IAPProvider iapProvider, IPersistentProgressService progressService)
+    {
+      var iapService = new IAPService(iapProvider, progressService);
+      iapService.Initialize();
+      _services.RegisterSingle<IIAPService>(iapService);
     }
 
     private static IInputService InputService()

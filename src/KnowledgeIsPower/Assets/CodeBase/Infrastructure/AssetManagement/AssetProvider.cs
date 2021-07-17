@@ -14,7 +14,7 @@ namespace CodeBase.Infrastructure.AssetManagement
     private readonly Dictionary<string, List<AsyncOperationHandle>> _handles =
       new Dictionary<string, List<AsyncOperationHandle>>();
 
-    public void Initialize() => 
+    public void Initialize() =>
       Addressables.InitializeAsync();
 
     public async Task<T> Load<T>(AssetReference assetReference) where T : class
@@ -36,21 +36,24 @@ namespace CodeBase.Infrastructure.AssetManagement
         Addressables.LoadAssetAsync<T>(address),
         address);
     }
-    
-    
-    public Task<GameObject> Instantiate(string address) => 
+
+
+    public Task<GameObject> Instantiate(string address) =>
       Addressables.InstantiateAsync(address).Task;
 
 
-    public Task<GameObject> Instantiate(string address, Vector3 at) => 
+    public Task<GameObject> Instantiate(string address, Vector3 at) =>
       Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
+
+    public Task<GameObject> Instantiate(string address, Transform under) =>
+      Addressables.InstantiateAsync(address, under).Task;
 
     public void CleanUp()
     {
       foreach (var resourceHandles in _handles.Values)
       foreach (var handle in resourceHandles)
         Addressables.Release(handle);
-      
+
       _completedCache.Clear();
       _handles.Clear();
     }
