@@ -1,2 +1,2 @@
-# Knowledge is Power
+# Lone Knight
 
